@@ -3,7 +3,7 @@ from . import FIXTURES_DIR
 
 def test_top_10(expected_top_10_life_expectancy):
     data = DataProcessor(FIXTURES_DIR / "CO2-emissions.csv")
-    result = data.get_top_10_from("LifeExpectancy")
+    result = data.get_top_X_from("LifeExpectancy")
     assert result == expected_top_10_life_expectancy
 
 def test_get_value_from_list(expected_CO2_emission):
