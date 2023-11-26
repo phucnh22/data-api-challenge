@@ -1,5 +1,5 @@
 '''Submodule contains public functions to handle file data'''
-import re
+from typing import List
 import pandas as pd
 from pathlib import Path
 
@@ -15,12 +15,12 @@ class DataProcessor:
         result_df = self.df.nlargest(10, value_col)[[value_col, id_col]]
         return result_df.set_index(id_col).to_dict()
 
-    def get_value_of_list(self, value_col: str, list_country_codes: [str]) -> dict:
+    def get_value_of_list(self, value_col: str, list_country_codes: List[str]) -> dict:
         list_country_codes = [x.upper() for x in list_country_codes]
         result_df = self.df[self.df['Code'].isin(list_country_codes)][[value_col, 'Code']]
         return result_df.set_index('Code').to_dict()
 
-    def get_sum_of_list(self, value_col: str, list_country_codes: [str]) -> dict:
+    def get_sum_of_list(self, value_col: str, list_country_codes: List[str]) -> dict:
         list_country_codes = [x.upper() for x in list_country_codes]
         result_df = self.df[self.df['Code'].isin(list_country_codes)][value_col].sum().item()
         return {value_col: result_df}
