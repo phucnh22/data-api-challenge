@@ -2,6 +2,69 @@
 
 This is a simple REST API built with Python and FastAPI that returns some data about the air we breathe in
 
+## Generic API Endpoints
+
+### Get top X countries according to specific index:
+
+Get top X countries with highest index.
+
+  -  `index` (string): Choose one of the available indexes CO2Emissions, YearlyChange, Percapita, Population, LifeExpectancy
+  -  `top` (int): the amount of top countries to get
+
+```console
+curl -X 'GET' 'http://localhost:8080/top-values/?index=Population&top=5'
+     -H 'accept: application/json'
+```
+Response:
+```json
+{
+  "Population": {
+    "China": 1414049351,
+    "India": 1324517249,
+    "United States": 323015995,
+    "Indonesia": 261556381,
+    "Brazil": 206163053
+  }
+}
+```
+
+### Get sum of specific index for a list of countries:
+
+Sum of index given a list of countries code.
+
+  -  `index` (string): Choose one of the available indexes CO2Emissions, YearlyChange, Percapita, Population, LifeExpectancy
+  -  `country_codes ` (string): country_codes are in 3 Alpha-3 format and separated by comma (e.g. "vnm,can")
+
+```console
+curl -X 'GET' \
+  'http://localhost:8080/sum-values/?index=Population&country_codes=vnm%2Ccan' \
+  -H 'accept: application/json'
+```
+Response:
+```json
+{"Population":130023366}
+```
+
+### Get values of specific index for a list of countries:
+
+Return the index value given a list of country codes
+
+  -  `index` (string): Choose one of the available indexes CO2Emissions, YearlyChange, Percapita, Population, LifeExpectancy
+  -  `country_codes ` (string): country_codes are in 3 Alpha-3 format and separated by comma (e.g. "vnm,can")
+
+```console
+curl -X 'GET' \
+  'http://localhost:8080/get-values/?index=Percapita&country_codes=vnm%2Ccan' \
+  -H 'accept: application/json'
+```
+Response:
+```json
+{
+  "CAN": 18.58,
+  "VNM": 2.2
+}
+```
+
 ## Specific API Endpoints
 
 ### Top 10 Countries with highest Co2Emissions perCapita:
