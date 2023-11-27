@@ -32,13 +32,17 @@ Response:
 
 Sum of index given a list of countries code.
 
-  -  `index` (string): Choose one of the available indexes CO2Emissions, YearlyChange, Percapita, Population, LifeExpectancy
-  -  `country_codes ` (string): country_codes are in 3 Alpha-3 format and separated by comma (e.g. "vnm,can")
+  -  `index` (string, required): Choose one of the available indexes CO2Emissions, YearlyChange, Percapita, Population, LifeExpectancy
+  -  `country_codes ` (string, required): country_codes are in Alpha-3 format and separated by comma (e.g. "vnm,can")
 
 ```console
-curl -X 'GET' \
-  'http://localhost:8080/sum-values/?index=Population&country_codes=vnm%2Ccan' \
-  -H 'accept: application/json'
+curl -X 'POST' \
+  'http://localhost:8080/sum-values' -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "index": "Population",
+  "country_codes": "vnm,can"
+}'
 ```
 Response:
 ```json
@@ -49,13 +53,18 @@ Response:
 
 Return the index value given a list of country codes
 
-  -  `index` (string): Choose one of the available indexes CO2Emissions, YearlyChange, Percapita, Population, LifeExpectancy
-  -  `country_codes ` (string): country_codes are in 3 Alpha-3 format and separated by comma (e.g. "vnm,can")
+  -  `index` (string, required): Choose one of the available indexes CO2Emissions, YearlyChange, Percapita, Population, LifeExpectancy
+  -  `country_codes ` (string, required): country_codes are in Alpha-3 format and separated by comma (e.g. "vnm,can")
 
 ```console
-curl -X 'GET' \
-  'http://localhost:8080/get-values/?index=Percapita&country_codes=vnm%2Ccan' \
-  -H 'accept: application/json'
+curl -X 'POST' \
+  'http://localhost:8080/get-values' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "index": "Percapita",
+  "country_codes": "vnm,can"
+}'
 ```
 Response:
 ```json
@@ -129,16 +138,18 @@ Response:
 
 ### Return CO2Emissions and YearlyChange given a list of country codes
 
-The country_codes are in 3 Alpha-3 format and separated by comma (%2C)
-
-```http
-GET /co2-yearly-change-from-list/{country_codes}
-```
+ - `country_codes` (string, required): The country_codes are in 3 Alpha-3 format and separated by comma
 
 Return CO2Emissions and YearlyChange given a list of country codes
 
 ```console
-curl http://localhost:8080/co2-yearly-change-from-list/can%2Clux%2Cest -H "Accept: application/json"
+curl -X 'POST' \
+  'http://localhost:8080/co2-yearly-change-from-list' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "country_codes": "can,lux,est"
+}'
 ```
 Response:
 
@@ -159,16 +170,18 @@ Response:
 
 ### Return total of Emissions given a list of countries codes
 
-The country_codes are in 3 Alpha-3 format and separated by comma (%2C)
-
-```http
-GET /total-emission-from-list/{country_codes}
-```
+ - `country_codes` (string, required): The country_codes are in 3 Alpha-3 format and separated by comma
 
 Return total of Emissions
 
 ```console
-curl http://localhost:8080/total-emission-from-list/can%2Clux%2Cest -H "Accept: application/json"
+curl -X 'POST' \
+  'http://localhost:8080/total-emission-from-list' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "country_codes": "can,lux,est"
+}'
 ```
 Response:
 
